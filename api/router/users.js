@@ -1,15 +1,13 @@
 const express = require("express")
 const router = express.Router();
 const mongoose = require("mongoose")
-//import bcrypt
+
 const bcrypt = require("bcrypt")
-//importuję model
+
 const User = require("../models/user");
-const user = require("../models/user");
-//importuje JWT
+
 const jwt = require("jsonwebtoken")
 
-//zakładanie konta
 router.post("/signup", (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) return res.status(500).json({ wiadomosc: err });
@@ -23,11 +21,10 @@ router.post("/signup", (req, res, next) => {
         user
             .save()
             .then(() => res.status(201).json({ wiadomosc: "Dodano użytkownika" }))
-            .catch(err => res.status(500).json({ wiadomosc: err })); // obsługa błędów
+            .catch(err => res.status(500).json({ wiadomosc: err })); 
     });
 });
 
-// Logowanie
 router.post("/login", (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {
