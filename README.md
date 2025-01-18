@@ -23,32 +23,32 @@ These instructions will get you a copy of the project up and running on your loc
 1.Clone repository:
     clone git https://github.com/vojtolini/ZaliczenieBazy
 2.Open folder for example in VS Code run terminal and install nescessary dependecies and modules:<br>
-    ```js
+    ```
     npm i node
     ```
-    ```js
+    ```
     npm i nodemon
     ```
-    ```js
+    ```
     npm i mongoose
     ```
-    ```js
+    ```
     npm i morgan
     ```
     <br>
-    ```js
+    ```
     npm i dotenv
     ```
-    ```js
+    ```
     npm i jsonwebtoken
     ```
-    ```js
+    ```
     npm i bcrypt
     ```
-    ```js
+    ```
     npm i express
     ```
-    ```js
+    ```
     npm i bodyParser
     ```
     <br>
