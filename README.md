@@ -117,8 +117,8 @@ POST /users/signup
 Expected Body 
 ```js
     {
-    "email": "user@email.com", // string, unique, required
-    "password": "password", // string, required
+    "email": "user@email.com",
+    "password": "password",
     }
 ```
 
@@ -145,6 +145,120 @@ Expected Response
 {
     "message": "Zalogowano pomyślnie",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMiwidXNlcm5hbWUiOiJuZXdfdXNlcjEyMTIxMiIsImlhdCI6MTU5ODQyMDg0NywiZXhwIjoxNTk4NDI4MDQ3fQ.YyR_rrRxYaDVTt3FPM155hPwbUAEFhyaDSOWqVOD8kM"
+}
+```
+## Sales Endpoints
+### GET All sales
+```js
+GET /sales
+
+Expected Response: returns array of sales in database 
+
+[
+    {
+        "id": "678bc758b2c59fcb27b7d57e",
+        "date": "18.01.2025",
+        "status": "zakończono",
+        "sell_value": 20000,
+        "car": {
+            "id": "678ba819d96876fa772e6eeb",
+            "mark": "Wolkswagen",
+            "model": "Touran",
+            "year": "2010",
+            "price": 20000
+        },
+        "client": {
+            "id": "678bc60e128543122b64ade6",
+            "name": "Jan Kowalski",
+            "phone": "12312312",
+            "email": "jan@mail.com"
+        }
+    }
+]
+```
+### GET sales by id
+```js
+    GET /sales/:id
+
+Expected response: returns sales by id from database
+
+{
+    "id": "678bc758b2c59fcb27b7d57e",
+    "date": "18.01.2025",
+    "status": "zakończono",
+    "sell_value": 20000,
+    "car": {
+        "id": "678ba819d96876fa772e6eeb",
+        "mark": "Wolkswagen",
+        "model": "Touran",
+        "year": "2010",
+        "price": 20000
+    },
+    "client": {
+        "id": "678bc60e128543122b64ade6",
+        "name": "Jan Kowalski",
+        "phone": "12312312",
+        "email": "jan@mail.com"
+    }
+}
+
+```
+### POST sales
+```js
+POST /sales
+
+Expected Body: 
+    {
+    "car_id":"678ba819d96876fa772e6eeb",
+    "client_id":"678bc60e128543122b64ade6",
+    "date":"18.01.2025",
+    "price":"10000",
+    "status":"zakończono"
+}
+
+Expected Response: returns object of created sales in database 
+
+{
+    "wiadomość": "utworzenie nowej sprzedaży",
+    "dane": {
+        "car_id": "678ba819d96876fa772e6eeb",
+        "client_id": "678bc60e128543122b64ade6",
+        "date": "18.01.2025",
+        "price": 10000,
+        "status": "zakończono",
+        "_id": "678bcd9bb1f7ca41ff0de66b",
+        "__v": 0
+    }
+}
+```
+
+### PUT sales By ID
+```js
+PUT /sales/:id
+
+Expected Body:
+    {
+        "car_id":"678ba819d96876fa772e6eeb",
+        "client_id":"678bc60e128543122b64ade6",
+        "date":"18.01.2025",
+        "price":"100000",
+        "status":"zakończono"
+    }
+
+Expected Response: updates cars specified by :id
+
+    {
+        "wiadomość": "Zmiana danych sprzedaży o numerze 678bc1016f68f182952cd299"
+    }
+```
+
+### DELETE sales by ID
+```js
+DELETE /sales/:id
+
+Expected Response: deletes sales specified by :id
+{
+    "wiadomość": "Usunięcie produktu o numerze 678bc1016f68f182952cd299"
 }
 ```
 ## Cars Endpoints
