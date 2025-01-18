@@ -24,30 +24,34 @@ These instructions will get you a copy of the project up and running on your loc
     clone git https://github.com/vojtolini/ZaliczenieBazy
 2.Open folder for example in VS Code run terminal and install nescessary dependecies and modules:<br>
     ```js
-    npm i node<br>
-    ```
-    npm i nodemon<br>
-    ```js
-    npm i mongoose<br>
+    npm i node
     ```
     ```js
-    npm i morgan<br>
+    npm i nodemon
     ```
     ```js
-    npm i dotenv<br>
+    npm i mongoose
     ```
     ```js
-    npm i jsonwebtoken<br>
+    npm i morgan
+    ```
+    <br>
+    ```js
+    npm i dotenv
     ```
     ```js
-    npm i bcrypt<br>
+    npm i jsonwebtoken
     ```
     ```js
-    npm i express<br>
+    npm i bcrypt
     ```
     ```js
-    npm i bodyParser<br>
+    npm i express
     ```
+    ```js
+    npm i bodyParser
+    ```
+    <br>
 3.In the main project folder, create an .env file in which you will place the MongoDb connection variables:<br>
     DB_USER ="your username"<br>
     DB_PASSWORD = "your password"<br>
