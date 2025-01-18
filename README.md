@@ -22,44 +22,44 @@ These instructions will get you a copy of the project up and running on your loc
 
 1.Clone repository:
     clone git https://github.com/vojtolini/ZaliczenieBazy
-2.Open folder for example in VS Code run terminal and install nescessary dependecies and modules:
-    npm i node
-    npm i nodemon
-    npm i mongoose 
-    npm i morgan
-    npm i dotenv
-    npm i jsonwebtoken
-    npm i bcrypt
-    npm i express
-    npm i bodyParser
-3.In the main project folder, create an .env file in which you will place the MongoDb connection variables:
-    DB_USER ="your username"
-    DB_PASSWORD = "your password"
-    DB_NAME = "your dbname"
-    JWT_KEY = "jwt key"
-4.Connect to your database.
-5.Start server by typing nodemon server.js in console.
+2.Open folder for example in VS Code run terminal and install nescessary dependecies and modules:<br>
+    npm i node<br>
+    npm i nodemon<br>
+    npm i mongoose<br>
+    npm i morgan<br>
+    npm i dotenv<br>
+    npm i jsonwebtoken<br>
+    npm i bcrypt<br>
+    npm i express<br>
+    npm i bodyParser<br>
+3.In the main project folder, create an .env file in which you will place the MongoDb connection variables:<br>
+    DB_USER ="your username"<br>
+    DB_PASSWORD = "your password"<br>
+    DB_NAME = "your dbname"<br>
+    JWT_KEY = "jwt key"<br>
+4.Connect to your database.<br>
+5.Start server by typing nodemon server.js in console.<br>
 
 # Overview
-The application allows you to manage collections named cars, customers, sales and insurance. 
+The application allows you to manage collections named cars, customers, sales and insurance.<br> 
 It allows you to delete, add, modify, and view documents contained in these collections.
 
 # Back-end 
 
-1.API's
-    RESTful api allows to exchanege communication between client and server.
-    Client can use few endpoints do comunicate with server which response with needed 
-    data or returns nescessary errors.
+1.API's<br>
+    RESTful api allows to exchanege communication between client and server.<br>
+    Client can use few endpoints do comunicate with server which response with needed<br> 
+    data or returns nescessary errors.<br>
 
-2.Database
-    The API uses the non-relational MongoDb database.
+2.Database<br>
+    The API uses the non-relational MongoDb database.<br>
 
-3.Authentication
-    The application uses authorization via JWT. 
-    When trying to use a route, the middleware 
-    responsible for authorization checks 
-    whether the user has a valid token. 
-    To receive it, the user must first log in
+3.Authentication<br>
+    The application uses authorization via JWT.<br> 
+    When trying to use a route, the middleware<br> 
+    responsible for authorization checks<br> 
+    whether the user has a valid token.<br> 
+    To receive it, the user must first log in<br>
 
 # API Endpoints
 Use Base URL: http://localhost:3000
