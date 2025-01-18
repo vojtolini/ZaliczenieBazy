@@ -25,13 +25,27 @@ These instructions will get you a copy of the project up and running on your loc
 2.Open folder for example in VS Code run terminal and install nescessary dependecies and modules:<br>
     ```js
     npm i node<br>
+    ```
     npm i nodemon<br>
+    ```js
     npm i mongoose<br>
+    ```
+    ```js
     npm i morgan<br>
+    ```
+    ```js
     npm i dotenv<br>
+    ```
+    ```js
     npm i jsonwebtoken<br>
+    ```
+    ```js
     npm i bcrypt<br>
+    ```
+    ```js
     npm i express<br>
+    ```
+    ```js
     npm i bodyParser<br>
     ```
 3.In the main project folder, create an .env file in which you will place the MongoDb connection variables:<br>
