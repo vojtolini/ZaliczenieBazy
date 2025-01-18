@@ -12,6 +12,8 @@ router.post("/", checkAuth, ClientController.clients_add_new )
 
 router.get("/:clientId",checkAuth, ClientController.clients_get_by_id )
 
+router.get('/byname/name', checkAuth, ClientController.clients_get_by_name);
+
 router.put("/:clientId",checkAuth, ClientController.clients_update )
 
 router.delete("/:clientId",checkAuth, ClientController.clients_delete )

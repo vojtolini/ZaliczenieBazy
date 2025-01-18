@@ -5,18 +5,15 @@
 - **[Overview](#overview)**<br>
 - **[Back-end](#back-end)**<br>
 - **[API Endpoints](#api-endpoints)**<br>
-- **[Register Endpoint](##register-endpoint)**<br>
-- **[Login Endpoint](##login-endpoint)**<br>
-- **[Logout Endpoint](##logout-endpoint)**<br>
-- **[Campaign Endpoints](##campaign-endpoint)**<br>
-- **[Metrics Endpoints](##metrics-endpoints)**<br>
 
-# backend-api
+## Backend
 Back-end RESTful API
 
 # Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on<br> 
+your local machine for development and testing purposes.<br> 
+See deployment for notes on how to deploy the project on a live system.<br>
 
 # Installing
 
@@ -53,14 +50,14 @@ These instructions will get you a copy of the project up and running on your loc
     ```
     <br>
 3.In the main project folder, create an .env file in which you will place the MongoDb connection variables:<br>
-    ```js   
+    ```   
         DB_USER ="your username"<br>
         DB_PASSWORD = "your password"<br>
         DB_NAME = "your dbname"<br>
         JWT_KEY = "jwt key"<br>
     ```
-4.Connect to your database.<br>
-5.Start server by typing nodemon server.js in console.<br>
+4.Create connection string to your database<br>
+5.Start server by typing ```nodemon server.js``` in console.<br>
 
 # Overview
 The application allows you to manage collections named cars, customers, sales and insurance.<br> 
@@ -74,7 +71,7 @@ It allows you to delete, add, modify, and view documents contained in these coll
     data or returns nescessary errors.<br>
 
 2.Database<br>
-    The API uses the non-relational MongoDb database.<br>
+    The API uses the non-relational MongoDB Atlas cloud database.<br>
 
 3.Authentication<br>
     The application uses authorization via JWT.<br> 
@@ -93,22 +90,42 @@ Register & Login
 | POST   | /users/login      | logins into user account                         |
 
 Cars
-| Method | Route                  | Description                                      |
-|--------|------------------------|--------------------------------------------------|
-| GET    | /cars                  | returns all array of cars                        |
-| GET    | /cars/:id              | returns one car by id                            |
-| PUT    | /cars/:id              | updates car spceified by id                      |
-| POST   | /cars                  | creates new car                                  |
-| DELETE | /cars/:id              | deletes car specified by :id                     |
+| Method | Route                  | Description                                 |
+|--------|------------------------|---------------------------------------------|
+| GET    | /cars                  | returns all array of cars                   |
+| GET    | /cars/:id              | returns one car by id                       |
+| PUT    | /cars/:id              | updates car spceified by id                 |
+| POST   | /cars                  | creates new car                             |
+| DELETE | /cars/:id              | deletes car specified by :id                |
 
 Sales
-| Method | Route                  | Description                                      |
-|--------|------------------------|--------------------------------------------------|
-| GET    | /sales                 | returns all array of sales                       |
-| GET    | /sales/:id             | returns one sales by id                          |
-| PUT    | /sales/:id             | updates sales spceified by id                    |
-| POST   | /sales                 | creates new sales                                |
-| DELETE | /sales/:id             | deletes sales specified by :id                   |
+| Method | Route                  | Description                                 |
+|--------|------------------------|---------------------------------------------|
+| GET    | /sales                 | returns all array of sales                  |
+| GET    | /sales/:id             | returns one sales by id                     |
+| PUT    | /sales/:id             | updates sales spceified by id               |
+| POST   | /sales                 | creates new sales                           |
+| DELETE | /sales/:id             | deletes sales specified by :id              |
+
+Insurences
+| Method | Route                  | Description                                 |
+|--------|------------------------|---------------------------------------------|
+| GET    | /insurences            | returns all array of insurences             |
+| GET    | /insurences/:id        | returns one insurences by id                |
+| GET    | /insurences/byname/name?firstName=firstName&secondName=secondName| returns insurences by name|
+| PUT    | /insurences/:id        | updates insurences spceified by id          |
+| POST   | /insurences            | creates new insurences                      |
+| DELETE | /insurences/:id        | deletes insurences specified by :id         |
+
+Clients
+| Method | Route                  | Description                                 |
+|--------|------------------------|---------------------------------------------|
+| GET    | /clients               | returns all array of clients                |
+| GET    | /clients/:id           | returns one clients by id                   |
+| GET    | /clients/byname/name?firstName=firstName&secondName=secondName| returns clients by name|
+| PUT    | /clients/:id           | updates clients spceified by id             |
+| POST   | /clients               | creates new clients                         |
+| DELETE | /clients/:id           | deletes clients specified by :id            |
 
 
 
@@ -313,16 +330,38 @@ Expected response: returns clients by id from database
         "postal_code": "32-2453"
     }
 }
+```
+### GET clients by name
+```js
+    GET /byname/name?firstName=firstName&secondName=secondName
+
+Expected response: returns clients by name from database
+
+{
+    "wiadomość": "Szczegóły klienta o imieniu Krzysztof i nazwisku Judźwig",
+    "dane": {
+        "_id": "678c2b10568661fe3293feea",
+        "firstName": "Krzysztof",
+        "secondName": "Judźwig",
+        "phone": "12312312",
+        "email": "krzysztof@mail.com",
+        "street": "Złota 12",
+        "city": "Malbork",
+        "postal_code": "32-2453",
+        "__v": 0
+    }
+}
 
 ```
 ### POST clients
 ```js
-POST /cars
+POST /clients
 
 Expected Body: 
     {
         "_id": "678bc60e128543122b64ade6",
-        "name": "Zdzichu Kowalski",
+        "firstName":"Zdzichu" 
+        "secondName:":"Kowalski",
         "phone": "12312312",
         "email": "zdzichu@mail.com",
         "street": "Złota 12",
@@ -335,7 +374,8 @@ Expected Response: returns object of created car in database
 {
     "wiadomość": "Utworzono nowego klienta",
     "dane": {
-        "name": "Zdzichu Kowalski",
+        "firstName": "Zdzichu",
+        "secondName":"Kowalski",
         "phone": "12312312",
         "email": "zdzichu@mail.com",
         "street": "Złota 12",
@@ -354,7 +394,8 @@ PUT /clients/:id
 Expected Body:
     {
         "_id": "678bc60e128543122b64ade6",
-        "name": "Zdzichu Kowalewicz",
+        "firstName": "Zdzichu", 
+        "secondName":"Kowalewicz",
         "phone": "12312312",
         "email": "zdzichu@mail.com",
         "street": "Złota 12",

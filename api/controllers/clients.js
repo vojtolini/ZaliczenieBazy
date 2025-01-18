@@ -15,7 +15,8 @@ exports.clients_get_all = (req, res, next) => {
 exports.clients_add_new = async (req, res, next) => {
     const client = new Client({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
+        firstName: req.body.firstName,
+        secondName: req.body.secondName,
         phone: req.body.phone,
         email: req.body.email,
         street: req.body.street,
@@ -62,11 +63,43 @@ exports.clients_get_by_id = (req, res, next) => {
         });
 };
 
+exports.clients_get_by_name = (req, res, next) => {
+    const { firstName, secondName } = req.query; // Pobierz parametry z zapytania
+
+    if (!firstName || !secondName) {
+        return res.status(400).json({
+            wiadomość: "Brak wymaganych parametrów: firstName i/lub secondName"
+        });
+    }
+
+    Client.findOne({ firstName: firstName, secondName: secondName })
+        .then(result => {
+            if (result) {
+                res.status(200).json({
+                    wiadomość: `Szczegóły klienta o imieniu ${firstName} i nazwisku ${secondName}`,
+                    dane: result
+                });
+            } else {
+                res.status(404).json({
+                    wiadomość: `Nie znaleziono klienta o imieniu ${firstName} i nazwisku ${secondName}`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                wiadomość: "Wystąpił błąd podczas wyszukiwania klienta",
+                błąd: err.message
+            });
+        });
+};
+
+
 
 exports.clients_update = (req, res, next) => {
     const id = req.params.clientId
     Client.findByIdAndUpdate(id, {
-        name:req.body.name,
+        firstName:req.body.name,
+        secondName: req.body.name,
         phone:req.body.phone,
         email:req.body.email,
         address:{

@@ -12,7 +12,7 @@ exports.insurences_get_all = async (req, res, next) => {
             .populate({
                 path: 'client_id',
                 model: 'Client',
-                select: 'name phone email address'
+                select: 'firstName secondName phone email address'
             });
 
         res.status(200).json(insurences);
@@ -54,7 +54,7 @@ exports.insurences_get_by_id = (req, res, next) => {
     .populate({
         path: 'client_id', 
         model: 'Client', 
-        select: 'name phone email address' 
+        select: 'firstName secondName phone email address' 
       })
     .then(result => {
         if (result) {
@@ -106,7 +106,7 @@ exports.insurences_get_by_client_id = (req, res, next) => {
     }
 
     Insurence.find({ client_data: clientId })
-        .populate('client_data', 'name phone email street city postal_code') 
+        .populate('client_data', 'firstName secondName phone email street city postal_code') 
         .populate('car_data', 'mark model year price')
         .then(results => {
             if (results.length > 0) {

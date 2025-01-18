@@ -12,7 +12,7 @@ exports.sales_get_all = async (req, res, next) => {
           .populate({
             path: 'client_id', 
             model: 'Client', 
-            select: 'name phone email address' 
+            select: 'firstName secondName phone email address' 
           });
 
         // Mapowanie wyników do nowej struktury
@@ -30,7 +30,8 @@ exports.sales_get_all = async (req, res, next) => {
           },
           client: {
             id: sale.client_id._id,
-            name: sale.client_id.name,
+            firstName: sale.client_id.firstName,
+            secondName: sale.client_id.secondName,
             phone: sale.client_id.phone,
             email: sale.client_id.email,
             address: sale.client_id.address,
@@ -77,7 +78,8 @@ exports.sales_get_by_id = async (req, res, next) => {
                 },
                 client: {
                     id: sale.client_id._id,
-                    name: sale.client_id.name,
+                    firstName: sale.client_id.firstName,
+                    secondName: sale.client_id.secondName,
                     phone: sale.client_id.phone,
                     email: sale.client_id.email,
                     address: sale.client_id.address
