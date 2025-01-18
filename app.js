@@ -19,13 +19,13 @@ const userRoutes = require("./api/router/users")
 const clientRoutes = require("./api/router/clients")
 const carRoutes = require("./api/router/cars")
 const saleRoutes = require("./api/router/sales")
-const salesInfoRoutes =  require("./api/router/salesInfo")
+const InsurencesRoutes = require("./api/router/insurences")
 
 app.use("/users", userRoutes)
 app.use("/clients", clientRoutes)
 app.use("/cars", carRoutes)
 app.use("/sales", saleRoutes)
-app.use("/salesInfo", salesInfoRoutes)
+app.use("/insurences", InsurencesRoutes)
 
 
 app.use((req, res, next) => {

@@ -6,7 +6,7 @@ exports.cars_get_all = (req, res, next) => {
     Car.find()
     .then(cars => {
         res.status(200).json({
-            wiadomość: "lista wszystkich produktów",
+            wiadomość: "lista wszystkich samochodów",
             lista: cars
         })
     })
