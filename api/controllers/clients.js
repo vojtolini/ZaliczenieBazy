@@ -5,7 +5,7 @@ exports.clients_get_all = (req, res, next) => {
     Client.find()
     .then(clients => {
         res.status(200).json({
-            wiadomość: "lista wszystkich produktów",
+            wiadomość: "lista wszystkich klientów",
             lista: clients
         })
     })
@@ -64,7 +64,7 @@ exports.clients_get_by_id = (req, res, next) => {
 
 
 exports.clients_update = (req, res, next) => {
-    const id = req.params.productId
+    const id = req.params.clientId
     Client.findByIdAndUpdate(id, {
         name:req.body.name,
         phone:req.body.phone,
@@ -75,7 +75,7 @@ exports.clients_update = (req, res, next) => {
         postal_code: req.body.postal_code
   }})
     .then(()=> {
-        res.status(200).json({wiadomość: "Zmiana danych produktu o numerze " 
+        res.status(200).json({wiadomość: "Zmiana danych klienta o numerze " 
         + id}) 
     })
 }
@@ -85,6 +85,6 @@ exports.clients_delete = (req, res, next) => {
     Client
     .findOneAndDelete(id)
     .then(() => {
-        res.status(200).json({wiadomość: "Usunięcie produktu o numerze " + id})
+        res.status(200).json({wiadomość: "Usunięcie klienta o numerze " + id})
     })
 }

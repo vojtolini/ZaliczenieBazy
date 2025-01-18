@@ -1,34 +1,36 @@
 const Insurence = require("../models/insurence");
 const mongoose = require("mongoose")
 
-exports.insurences_get_all = async(req, res) =>{
-    try{
-         const insurences = await Insurence.find()
-              .populate({
-                path: 'car_data', 
-                model: 'Car', 
-                select: 'mark model year price' 
-              })
-              .populate({
-                path: 'client_data', 
-                model: 'Client', 
-                select: 'name phone email address' 
-              });
-        
-            res.status(200).json(insurences);
-          } catch (error) {
-            res.status(500).json({
-              error: 'Wystąpił błąd podczas pobierania sprzedaży.',
-              details: error.message
+exports.insurences_get_all = async (req, res, next) => {
+    try {
+        const insurences = await Insurence.find()
+            .populate({
+                path: 'car_id',
+                model: 'Car',
+                select: 'mark model year price'
+            })
+            .populate({
+                path: 'client_id',
+                model: 'Client',
+                select: 'name phone email address'
             });
+
+        res.status(200).json(insurences);
+    } catch (error) {
+        res.status(500).json({
+            error: 'Wystąpił błąd podczas pobierania ubezpieczenia.',
+            details: error.message
+        });
     }
-}
+};
+
+
 
 exports.insurences_add_new = (req, res, next) => {
     const insurence = new Insurence({
         _id: new mongoose.Types.ObjectId(),
-        car_data:req.body.car_data,
-        client_data:req.body.client_data
+        car_id:req.body.car_id,
+        client_id:req.body.client_id
     })
     insurence.save()
     .then(result=>{
@@ -45,12 +47,12 @@ exports.insurences_get_by_id = (req, res, next) => {
 
     Insurence.findById(id)
     .populate({
-        path: 'car_data', 
+        path: 'car_id', 
         model: 'Car', 
         select: 'mark model year price' 
       })
     .populate({
-        path: 'client_data', 
+        path: 'client_id', 
         model: 'Client', 
         select: 'name phone email address' 
       })
@@ -125,5 +127,4 @@ exports.insurences_get_by_client_id = (req, res, next) => {
             });
         });
 };
-
 

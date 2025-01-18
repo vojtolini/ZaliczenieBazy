@@ -261,6 +261,121 @@ Expected Response: deletes sales specified by :id
     "wiadomość": "Usunięcie produktu o numerze 678bc1016f68f182952cd299"
 }
 ```
+## Clients Endpoints
+### GET All clients
+```js
+GET /clients
+
+Expected Response: returns array of clietns in database 
+
+{
+    "wiadomość": "lista wszystkich klientów",
+    "lista": [
+        {
+            "_id": "6783d00a468bd6286071d7d3",
+            "name": "Wojtyla Berlusconi",
+            "phone": "12414124",
+            "email": "fsdfs@fsdfs.com",
+            "street": "Sportowa",
+            "city": "Słupsk",
+            "postal_code": "76-200",
+            "__v": 0
+        },
+        {
+            "_id": "678bc60e128543122b64ade6",
+            "name": "Jan Kowalski",
+            "phone": "12312312",
+            "email": "jan@mail.com",
+            "strett": "Złota 12",
+            "city": "Malbork",
+            "postal_code": "32-2453"
+        }
+    ]
+}
+```
+### GET clients by id
+```js
+    GET /clients/:id
+
+Expected response: returns clients by id from database
+
+{
+    "wiadomość": "Szczegóły klienta o numerze 678bc60e128543122b64ade6",
+    "dane": {
+        "_id": "678bc60e128543122b64ade6",
+        "name": "Jan Kowalski",
+        "phone": "12312312",
+        "email": "jan@mail.com",
+        "strett": "Złota 12",
+        "city": "Malbork",
+        "postal_code": "32-2453"
+    }
+}
+
+```
+### POST clients
+```js
+POST /cars
+
+Expected Body: 
+    {
+        "_id": "678bc60e128543122b64ade6",
+        "name": "Zdzichu Kowalski",
+        "phone": "12312312",
+        "email": "zdzichu@mail.com",
+        "street": "Złota 12",
+        "city": "Malbork",
+        "postal_code": "32-2453"
+    }
+
+Expected Response: returns object of created car in database 
+
+{
+    "wiadomość": "Utworzono nowego klienta",
+    "dane": {
+        "name": "Zdzichu Kowalski",
+        "phone": "12312312",
+        "email": "zdzichu@mail.com",
+        "street": "Złota 12",
+        "city": "Malbork",
+        "postal_code": "32-2453",
+        "_id": "678be62637e3657a141277eb",
+        "__v": 0
+    }
+}
+```
+
+### PUT clients By ID
+```js
+PUT /clients/:id
+
+Expected Body:
+    {
+        "_id": "678bc60e128543122b64ade6",
+        "name": "Zdzichu Kowalewicz",
+        "phone": "12312312",
+        "email": "zdzichu@mail.com",
+        "street": "Złota 12",
+        "city": "Malbork",
+        "postal_code": "32-2453"
+    }
+Expected Response: updates cars specified by :id
+
+   {
+    "wiadomość": "Zmiana danych klienta o numerze 678be62637e3657a141277eb"
+}
+```
+
+### DELETE client by ID
+```js
+DELETE /clients/:id
+
+Expected Response: deletes clients specified by :id
+{
+    "wiadomość": "Usunięcie klienta o numerze 678be62637e3657a141277eb"
+}
+```
+
 ## Cars Endpoints
 ### GET All cars
 ```js
@@ -313,7 +428,7 @@ Expected Body:
     "price":"5000"
 }
 
-Expected Response: returns object of created campaign in database 
+Expected Response: returns object of created car in database 
 
 {
     "wiadomość": "utworzenie nowego auta",
@@ -354,5 +469,115 @@ DELETE /cars/:id
 Expected Response: deletes cars specified by :id
 {
     "wiadomość": "Usunięcie auta o numerze 678bc1016f68f182952cd299"
+}
+```
+## Insurences Endpoints
+### GET All insurences
+```js
+GET /insurences
+
+Expected Response: returns array of insurences in database 
+
+[
+    {
+        "_id": "678bef71a9b4fc15b34a7db7",
+        "car_id": {
+            "_id": "678ba819d96876fa772e6eeb",
+            "mark": "Wolkswagen",
+            "model": "Touran",
+            "year": "2010",
+            "price": 20000
+        },
+        "client_id": {
+            "_id": "678bc60e128543122b64ade6",
+            "name": "Jan Kowalski",
+            "phone": "12312312",
+            "email": "jan@mail.com"
+        },
+        "__v": 0,
+        "year_fee": 200,
+        "id": "678bef71a9b4fc15b34a7db7"
+    }
+]
+```
+### GET insurences by id
+```js
+    GET /insurences/:id
+
+Expected response: returns insurence by id from database
+
+{
+    "wiadomość": "Szczegóły ubezpieczenia o numerze 678bef71a9b4fc15b34a7db7",
+    "dane": {
+        "_id": "678bef71a9b4fc15b34a7db7",
+        "car_id": {
+            "_id": "678ba819d96876fa772e6eeb",
+            "mark": "Wolkswagen",
+            "model": "Touran",
+            "year": "2010",
+            "price": 20000
+        },
+        "client_id": {
+            "_id": "678bc60e128543122b64ade6",
+            "name": "Jan Kowalski",
+            "phone": "12312312",
+            "email": "jan@mail.com"
+        },
+        "__v": 0,
+        "year_fee": 200,
+        "id": "678bef71a9b4fc15b34a7db7"
+    }
+}
+
+```
+### POST insurences
+```js
+POST /insurences
+
+Expected Body: 
+    {
+        "car_id": "678ba819d96876fa772e6eeb",
+        "client_id": "678bc60e128543122b64ade6"
+    }
+
+Expected Response: returns object of created insurence in database 
+
+{
+    "wiadomość": "utworzenie nowego auta",
+    "dane": {
+        "mark": "Ford",
+        "model": "Fiesta",
+        "year": "2010",
+        "price": 5000,
+        "_id": "678bc1016f68f182952cd299",
+        "__v": 0
+    }
+}
+```
+
+### PUT insurences By ID
+```js
+PUT /insurences/:id
+
+Expected Body:
+    {
+        "car_id": "678bc1016f68f182952cd299",
+        "client_id": "678bc60e128543122b64ade6"
+    }
+
+Expected Response: updates cars specified by :id
+
+    {
+    "wiadomość": "Zmiana zmmiana ubezepiczenia ubezpieczenia o numerze 678bef71a9b4fc15b34a7db7"
+}
+```
+
+### DELETE insurences by ID
+```js
+DELETE /insurences/:id
+
+Expected Response: deletes cars specified by :id
+{
+    "wiadomość": "Usunięcie ubezepieczenua o podanym id678bef71a9b4fc15b34a7db7"
 }
 ```
