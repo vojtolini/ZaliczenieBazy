@@ -121,8 +121,8 @@ Insurences
 |--------|------------------------|---------------------------------------------|
 | GET    | /insurences            | returns all array of insurences             |
 | GET    | /insurences/:id        | returns one insurences by id                |
-| GET    | /insurences/client/id/:clientId| returns insurences by id            |
-| GET    | /insurences/byname/name?firstName=firstName&secondName=secondName| returns insurences by name|
+| GET    | /insurences/client/id/:clientId| returns insurences by client id            |
+| GET    | /insurences/byname/name?firstName=firstName&secondName=secondName| returns insurences by client name|
 | PUT    | /insurences/:id        | updates insurences spceified by id          |
 | POST   | /insurences            | creates new insurences                      |
 | DELETE | /insurences/:id        | deletes insurences specified by :id         |
