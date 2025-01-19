@@ -1,4 +1,6 @@
 const Insurence = require("../models/insurence");
+const Client = require('../models/client');
+
 const mongoose = require("mongoose")
 
 exports.insurences_get_all = async (req, res, next) => {
@@ -12,7 +14,7 @@ exports.insurences_get_all = async (req, res, next) => {
             .populate({
                 path: 'client_id',
                 model: 'Client',
-                select: 'firstName secondName phone email address'
+                select: 'firstName secondName phone email street city postal_code'
             });
 
         res.status(200).json(insurences);
@@ -54,7 +56,7 @@ exports.insurences_get_by_id = (req, res, next) => {
     .populate({
         path: 'client_id', 
         model: 'Client', 
-        select: 'firstName secondName phone email address' 
+        select: 'firstName secondName phone email street city postal_code' 
       })
     .then(result => {
         if (result) {
@@ -137,3 +139,53 @@ exports.insurences_get_by_client_id = async (req, res, next) => {
     }
 };
 
+exports.insurences_get_by_client_name = async (req, res, next) => {
+    const { firstName, secondName } = req.query;
+
+    if (!firstName || !secondName) {
+        return res.status(400).json({
+            wiadomość: "Należy podać zarówno imię, jak i nazwisko klienta"
+        });
+    }
+
+    try {
+        // Znalezienie klienta na podstawie imienia i nazwiska
+        const client = await Client.findOne({ firstName, secondName });
+
+        if (!client) {
+            return res.status(404).json({
+                wiadomość: `Nie znaleziono klienta o imieniu: ${firstName} i nazwisku: ${secondName}`
+            });
+        }
+
+        // Pobranie ubezpieczeń na podstawie znalezionego ID klienta
+        const results = await Insurence.find({ client_id: client._id })
+            .populate({
+                path: 'car_id',
+                model: 'Car',
+                select: 'mark model year price'
+            })
+            .populate({
+                path: 'client_id',
+                model: 'Client',
+                select: 'firstName secondName phone email street city postal_code'
+            });
+
+        if (results.length > 0) {
+            return res.status(200).json({
+                wiadomość: `Znaleziono ubezpieczenia dla klienta: ${firstName} ${secondName}`,
+                dane: results
+            });
+        } else {
+            return res.status(404).json({
+                wiadomość: `Nie znaleziono ubezpieczeń dla klienta: ${firstName} ${secondName}`
+            });
+        }
+    } catch (err) {
+        console.error('Błąd wyszukiwania ubezpieczeń:', err);
+        return res.status(500).json({
+            wiadomość: "Wystąpił błąd podczas wyszukiwania ubezpieczeń",
+            błąd: err.message
+        });
+    }
+};

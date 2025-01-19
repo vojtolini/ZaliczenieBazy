@@ -1,4 +1,5 @@
 const Sale = require("../models/sale")
+const Client = require("../models/client")
 const mongoose = require("mongoose")
 
 exports.sales_get_all = async (req, res, next) => {
@@ -12,7 +13,7 @@ exports.sales_get_all = async (req, res, next) => {
           .populate({
             path: 'client_id', 
             model: 'Client', 
-            select: 'firstName secondName phone email address' 
+            select: 'firstName secondName phone email street city postal_code' 
           });
 
         // Mapowanie wyników do nowej struktury
@@ -34,7 +35,9 @@ exports.sales_get_all = async (req, res, next) => {
             secondName: sale.client_id.secondName,
             phone: sale.client_id.phone,
             email: sale.client_id.email,
-            address: sale.client_id.address,
+            street: sale.client_id.street,
+            city: sale.client_id.city,
+            postal_code: sale.client_id.postal_code
           },
         }));
 
@@ -60,7 +63,7 @@ exports.sales_get_by_id = async (req, res, next) => {
             .populate({
                 path: 'client_id',
                 model: 'Client',
-                select: 'name phone email address'
+                select: 'name phone email street city postal_code'
             });
 
         if (sale) {
@@ -82,7 +85,9 @@ exports.sales_get_by_id = async (req, res, next) => {
                     secondName: sale.client_id.secondName,
                     phone: sale.client_id.phone,
                     email: sale.client_id.email,
-                    address: sale.client_id.address
+                    street: sale.client_id.street,
+                    city: sale.client_id.city,
+                    postal_code: sale.client_id.postal_code
                 }
             };
 
@@ -100,7 +105,133 @@ exports.sales_get_by_id = async (req, res, next) => {
     }
 };
 
+exports.sales_get_by_client_id = async (req, res, next) => {
+    const clientId = req.params.clientId;
 
+    try {
+        const sales = await Sale.find({ client_id: clientId })
+            .populate({
+                path: 'car_id',
+                model: 'Car',
+                select: 'mark model year price'
+            })
+            .populate({
+                path: 'client_id',
+                model: 'Client',
+                select: 'firstName secondName phone email street city postal_code'
+            });
+
+        if (sales) {
+            const salesWithCarPrice = sales.map(sale => ({
+                id: sale._id,
+                date: sale.date,
+                status: sale.status,
+                sell_value: sale.car_id.price,
+                car: {
+                    id: sale.car_id._id,
+                    mark: sale.car_id.mark,
+                    model: sale.car_id.model,
+                    year: sale.car_id.year,
+                    price: sale.car_id.price
+                },
+                client: {
+                    id: sale.client_id._id,
+                    firstName: sale.client_id.firstName,
+                    secondName: sale.client_id.secondName,
+                    phone: sale.client_id.phone,
+                    email: sale.client_id.email,
+                    street: sale.client_id.street,
+                    city: sale.client_id.city,
+                    postal_code: sale.client_id.postal_code
+                }
+            }));
+
+            res.status(200).json(salesWithCarPrice);
+        } else {
+            res.status(404).json({
+                message: `Nie znaleziono sprzedaży dla klienta o numerze ${clientId}`
+            });
+        }
+    } catch (err) {
+        res.status(500).json({
+            message: "Wystąpił błąd podczas wyszukiwania sprzedaży",
+            error: err.message
+        });
+    }
+};
+
+exports.sales_get_by_client_name = async (req, res, next) => {
+    const { firstName, secondName } = req.query;
+
+    if (!firstName || !secondName) {
+        return res.status(400).json({
+            message: "Należy podać zarówno imię, jak i nazwisko klienta"
+        });
+    }
+
+    try {
+        // Znajdź klienta na podstawie imienia i nazwiska
+        const client = await Client.findOne({ firstName, secondName });
+
+        if (!client) {
+            return res.status(404).json({
+                message: `Nie znaleziono klienta o imieniu: ${firstName} i nazwisku: ${secondName}`
+            });
+        }
+
+        // Znajdź sprzedaże związane z klientem
+        const sales = await Sale.find({ client_id: client._id })
+            .populate({
+                path: 'car_id',
+                model: 'Car',
+                select: 'mark model year price'
+            })
+            .populate({
+                path: 'client_id',
+                model: 'Client',
+                select: 'firstName secondName phone email street city postal_code'
+            });
+
+        if (sales.length === 0) {
+            return res.status(404).json({
+                message: `Nie znaleziono sprzedaży dla klienta: ${firstName} ${secondName}`
+            });
+        }
+
+        // Formatowanie wyników
+        const salesWithCarPrice = sales.map(sale => ({
+            id: sale._id,
+            date: sale.date,
+            status: sale.status,
+            sell_value: sale.car_id.price,
+            car: {
+                id: sale.car_id._id,
+                mark: sale.car_id.mark,
+                model: sale.car_id.model,
+                year: sale.car_id.year,
+                price: sale.car_id.price
+            },
+            client: {
+                id: sale.client_id._id,
+                firstName: sale.client_id.firstName,
+                secondName: sale.client_id.secondName,
+                phone: sale.client_id.phone,
+                email: sale.client_id.email,
+                street: sale.client_id.street,
+                city: sale.client_id.city,
+                postal_code: sale.client_id.postal_code
+            }
+        }));
+
+        // Zwróć sformatowane wyniki
+        res.status(200).json(salesWithCarPrice);
+    } catch (error) {
+        res.status(500).json({
+            message: "Wystąpił błąd podczas wyszukiwania sprzedaży",
+            error: error.message
+        });
+    }
+};
 
 
 exports.sales_add_new = (req, res, next) => {

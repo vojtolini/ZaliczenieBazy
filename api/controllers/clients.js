@@ -64,7 +64,7 @@ exports.clients_get_by_id = (req, res, next) => {
 };
 
 exports.clients_get_by_name = (req, res, next) => {
-    const { firstName, secondName } = req.query; // Pobierz parametry z zapytania
+    const { firstName, secondName } = req.query;
 
     if (!firstName || !secondName) {
         return res.status(400).json({

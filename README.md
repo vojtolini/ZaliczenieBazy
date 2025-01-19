@@ -110,6 +110,8 @@ Sales
 |--------|------------------------|---------------------------------------------|
 | GET    | /sales                 | returns all array of sales                  |
 | GET    | /sales/:id             | returns one sales by id                     |
+| GET    | /sales/client/:clientId| returns sales by clientId                   |
+| GET    | /sales/client/byname/name?firstName=firstName&secondName=secondName| returns sales by client name|
 | PUT    | /sales/:id             | updates sales spceified by id               |
 | POST   | /sales                 | creates new sales                           |
 | DELETE | /sales/:id             | deletes sales specified by :id              |
@@ -119,6 +121,7 @@ Insurences
 |--------|------------------------|---------------------------------------------|
 | GET    | /insurences            | returns all array of insurences             |
 | GET    | /insurences/:id        | returns one insurences by id                |
+| GET    | /insurences/client/id/:clientId| returns insurences by id            |
 | GET    | /insurences/byname/name?firstName=firstName&secondName=secondName| returns insurences by name|
 | PUT    | /insurences/:id        | updates insurences spceified by id          |
 | POST   | /insurences            | creates new insurences                      |
@@ -181,23 +184,27 @@ GET /sales
 Expected Response: returns array of sales in database 
 
 [
-    {
-        "id": "678bc758b2c59fcb27b7d57e",
-        "date": "18.01.2025",
-        "status": "zakończono",
+     {
+        "id": "678c38f0775d5239adcd3383",
+        "date": "10.01.2025",
+        "status": "sprzedane",
         "sell_value": 20000,
         "car": {
-            "id": "678ba819d96876fa772e6eeb",
-            "mark": "Wolkswagen",
-            "model": "Touran",
-            "year": "2010",
+            "id": "678c37e5775d5239adcd337a",
+            "mark": "Skoda",
+            "model": "Octavia",
+            "year": "2014",
             "price": 20000
         },
         "client": {
-            "id": "678bc60e128543122b64ade6",
-            "name": "Jan Kowalski",
+            "id": "678c2b10568661fe3293feea",
+            "firstName": "Krzysztof",
+            "secondName": "Judźwig",
             "phone": "12312312",
-            "email": "jan@mail.com"
+            "email": "krzysztof@mail.com",
+            "street": "Złota 12",
+            "city": "Malbork",
+            "postal_code": "32-2453"
         }
     }
 ]
@@ -208,27 +215,98 @@ Expected Response: returns array of sales in database
 
 Expected response: returns sales by id from database
 
-{
-    "id": "678bc758b2c59fcb27b7d57e",
-    "date": "18.01.2025",
-    "status": "zakończono",
-    "sell_value": 20000,
-    "car": {
-        "id": "678ba819d96876fa772e6eeb",
-        "mark": "Wolkswagen",
-        "model": "Touran",
-        "year": "2010",
-        "price": 20000
-    },
-    "client": {
-        "id": "678bc60e128543122b64ade6",
-        "name": "Jan Kowalski",
-        "phone": "12312312",
-        "email": "jan@mail.com"
+ {
+        "id": "678c38f0775d5239adcd3383",
+        "date": "10.01.2025",
+        "status": "sprzedane",
+        "sell_value": 20000,
+        "car": {
+            "id": "678c37e5775d5239adcd337a",
+            "mark": "Skoda",
+            "model": "Octavia",
+            "year": "2014",
+            "price": 20000
+        },
+        "client": {
+            "id": "678c2b10568661fe3293feea",
+            "firstName": "Krzysztof",
+            "secondName": "Judźwig",
+            "phone": "12312312",
+            "email": "krzysztof@mail.com",
+            "street": "Złota 12",
+            "city": "Malbork",
+            "postal_code": "32-2453"
+        }
     }
-}
 
 ```
+### GET sales by clientId
+```js
+    GET /sales/client/:clientId
+
+Expected response: returns sales by clientId from database
+
+ [
+    {
+        "id": "678c38f0775d5239adcd3383",
+        "date": "10.01.2025",
+        "status": "sprzedane",
+        "sell_value": 20000,
+        "car": {
+            "id": "678c37e5775d5239adcd337a",
+            "mark": "Skoda",
+            "model": "Octavia",
+            "year": "2014",
+            "price": 20000
+        },
+        "client": {
+            "id": "678c2b10568661fe3293feea",
+            "firstName": "Krzysztof",
+            "secondName": "Judźwig",
+            "phone": "12312312",
+            "email": "krzysztof@mail.com",
+            "street": "Złota 12",
+            "city": "Malbork",
+            "postal_code": "32-2453"
+        }
+    }
+]
+
+```
+### GET sales by client name
+```js
+    GET /sales/client/byname/name
+
+Expected response: returns sales by client name from database
+
+ [
+    {
+        "id": "678c38f0775d5239adcd3383",
+        "date": "10.01.2025",
+        "status": "sprzedane",
+        "sell_value": 20000,
+        "car": {
+            "id": "678c37e5775d5239adcd337a",
+            "mark": "Skoda",
+            "model": "Octavia",
+            "year": "2014",
+            "price": 20000
+        },
+        "client": {
+            "id": "678c2b10568661fe3293feea",
+            "firstName": "Krzysztof",
+            "secondName": "Judźwig",
+            "phone": "12312312",
+            "email": "krzysztof@mail.com",
+            "street": "Złota 12",
+            "city": "Malbork",
+            "postal_code": "32-2453"
+        }
+    }
+]
+
+```
+
 ### POST sales
 ```js
 POST /sales
@@ -588,6 +666,42 @@ Expected response: returns insurence by clientId from database
 
 {
     "wiadomość": "Znaleziono ubezpieczenia dla klienta o ID: 678c2b10568661fe3293feea",
+    "dane": [
+        {
+            "_id": "678c3843775d5239adcd337d",
+            "car_id": {
+                "_id": "678c37e5775d5239adcd337a",
+                "mark": "Skoda",
+                "model": "Octavia",
+                "year": "2014",
+                "price": 20000
+            },
+            "client_id": {
+                "_id": "678c2b10568661fe3293feea",
+                "firstName": "Krzysztof",
+                "secondName": "Judźwig",
+                "phone": "12312312",
+                "email": "krzysztof@mail.com",
+                "street": "Złota 12",
+                "city": "Malbork",
+                "postal_code": "32-2453"
+            },
+            "__v": 0,
+            "year_fee": 200,
+            "id": "678c3843775d5239adcd337d"
+        }
+    ]
+}
+
+```
+### GET insurences by clients name
+```js
+    GET /insurences/byname/name
+
+Expected response: returns insurence by client name from database
+
+{
+    "wiadomość": "Znaleziono ubezpieczenia dla klienta: Krzysztof Judźwig",
     "dane": [
         {
             "_id": "678c3843775d5239adcd337d",
