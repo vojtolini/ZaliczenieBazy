@@ -51,11 +51,18 @@ See deployment for notes on how to deploy the project on a live system.<br>
     <br>
 3.In the main project folder, create an .env file in which you will place the MongoDb connection variables:<br>
     ```   
-        DB_USER ="your username"<br>
-        DB_PASSWORD = "your password"<br>
-        DB_NAME = "your dbname"<br>
-        JWT_KEY = "jwt key"<br>
+        DB_USER ="your username"
     ```
+    ```
+        DB_PASSWORD = "your password"
+    ```
+    ```
+        DB_NAME = "your dbname"
+    ```
+    ```
+        JWT_KEY = "jwt key"
+    ```
+<br>
 4.Create connection string to your database<br>
 5.Start server by typing ```nodemon server.js``` in console.<br>
 
