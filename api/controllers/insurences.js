@@ -96,7 +96,7 @@ exports.delete_insurence_by_id = (req,res,next)=>{
     res.status(200).json({wiadomość:"Usunięcie ubezepieczenua o podanym id" +id}))
 }
 
-exports.insurences_get_by_client_id = (req, res, next) => {
+exports.insurences_get_by_client_id = async (req, res, next) => {
     const clientId = req.params.clientId;
 
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
@@ -105,26 +105,35 @@ exports.insurences_get_by_client_id = (req, res, next) => {
         });
     }
 
-    Insurence.find({ client_data: clientId })
-        .populate('client_data', 'firstName secondName phone email street city postal_code') 
-        .populate('car_data', 'mark model year price')
-        .then(results => {
-            if (results.length > 0) {
-                res.status(200).json({
-                    wiadomość: `Znaleziono ubezpieczenia dla klienta o ID: ${clientId}`,
-                    dane: results
-                });
-            } else {
-                res.status(404).json({
-                    wiadomość: `Nie znaleziono ubezpieczeń dla klienta o ID: ${clientId}`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).json({
-                wiadomość: "Wystąpił błąd podczas wyszukiwania ubezpieczeń",
-                błąd: err.message
+    try {
+        const results = await Insurence.find({ client_id: clientId })
+            .populate({
+                path: 'car_id',
+                model: 'Car',
+                select: 'mark model year price'
+            })
+            .populate({
+                path: 'client_id',
+                model: 'Client',
+                select: 'firstName secondName phone email street city postal_code'
             });
+
+        if (results.length > 0) {
+            return res.status(200).json({
+                wiadomość: `Znaleziono ubezpieczenia dla klienta o ID: ${clientId}`,
+                dane: results
+            });
+        } else {
+            return res.status(404).json({
+                wiadomość: `Nie znaleziono ubezpieczeń dla klienta o ID: ${clientId}`
+            });
+        }
+    } catch (err) {
+        console.error('Błąd wyszukiwania ubezpieczeń:', err);
+        return res.status(500).json({
+            wiadomość: "Wystąpił błąd podczas wyszukiwania ubezpieczeń",
+            błąd: err.message
         });
+    }
 };
 

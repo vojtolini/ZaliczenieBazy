@@ -465,11 +465,11 @@ POST /cars
 
 Expected Body: 
     {
-    "mark":"Ford",
-    "model":"Fiesta",
-    "year":"2010",
-    "price":"5000"
-}
+        "mark":"Ford",
+        "model":"Fiesta",
+        "year":"2010",
+        "price":"5000"
+    }
 
 Expected Response: returns object of created car in database 
 
@@ -492,11 +492,11 @@ PUT /cars/:id
 
 Expected Body:
     {
-    "mark":"Ford",
-    "model":"Fiesta",
-    "year":"2010",
-    "price":"6000"
-}
+        "mark":"Ford",
+        "model":"Fiesta",
+        "year":"2010",
+        "price":"6000"
+    }
 
 Expected Response: updates cars specified by :id
 
@@ -570,6 +570,42 @@ Expected response: returns insurence by id from database
         "year_fee": 200,
         "id": "678bef71a9b4fc15b34a7db7"
     }
+}
+
+```
+### GET insurences by clients id
+```js
+    GET /insurences/client/id/clientId
+
+Expected response: returns insurence by clientId from database
+
+{
+    "wiadomość": "Znaleziono ubezpieczenia dla klienta o ID: 678c2b10568661fe3293feea",
+    "dane": [
+        {
+            "_id": "678c3843775d5239adcd337d",
+            "car_id": {
+                "_id": "678c37e5775d5239adcd337a",
+                "mark": "Skoda",
+                "model": "Octavia",
+                "year": "2014",
+                "price": 20000
+            },
+            "client_id": {
+                "_id": "678c2b10568661fe3293feea",
+                "firstName": "Krzysztof",
+                "secondName": "Judźwig",
+                "phone": "12312312",
+                "email": "krzysztof@mail.com",
+                "street": "Złota 12",
+                "city": "Malbork",
+                "postal_code": "32-2453"
+            },
+            "__v": 0,
+            "year_fee": 200,
+            "id": "678c3843775d5239adcd337d"
+        }
+    ]
 }
 
 ```
