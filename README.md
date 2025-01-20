@@ -392,7 +392,7 @@ Expected Response: returns array of clietns in database
             "secondName":"Kowalski",
             "phone": "12312312",
             "email": "jan@mail.com",
-            "strett": "Złota 12",
+            "street": "Złota 12",
             "city": "Malbork",
             "postal_code": "32-2453"
         }
@@ -413,7 +413,7 @@ Expected response: returns clients by id from database
         "secondName":"Kowalski"
         "phone": "12312312",
         "email": "jan@mail.com",
-        "strett": "Złota 12",
+        "street": "Złota 12",
         "city": "Malbork",
         "postal_code": "32-2453"
     }
@@ -624,7 +624,10 @@ Expected Response: returns array of insurences in database
             "firstName": "Jan",
             "secondName":"Kowalski",
             "phone": "12312312",
-            "email": "jan@mail.com"
+            "email": "jan@mail.com",
+            "strett": "Złota 12",
+            "city": "Malbork",
+            "postal_code": "32-2453"
         },
         "__v": 0,
         "year_fee": 200,
@@ -654,7 +657,10 @@ Expected response: returns insurence by id from database
             "firstName": "Jan",
             "secondName":"Kowalski"
             "phone": "12312312",
-            "email": "jan@mail.com"
+            "email": "jan@mail.com",
+            "strett": "Złota 12",
+            "city": "Malbork",
+            "postal_code": "32-2453"
         },
         "__v": 0,
         "year_fee": 200,
@@ -770,7 +776,7 @@ Expected Body:
         "client_id": "678bc60e128543122b64ade6"
     }
 
-Expected Response: updates cars specified by :id
+Expected Response: updates insurences specified by :id
 
     {
     "wiadomość": "Zmiana zmmiana ubezepiczenia ubezpieczenia o numerze 678bef71a9b4fc15b34a7db7"
@@ -781,7 +787,7 @@ Expected Response: updates cars specified by :id
 ```js
 DELETE /insurences/:id
 
-Expected Response: deletes cars specified by :id
+Expected Response: deletes insurences specified by :id
 {
     "wiadomość": "Usunięcie ubezepieczenua o podanym id678bef71a9b4fc15b34a7db7"
 }
