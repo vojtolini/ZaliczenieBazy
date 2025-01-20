@@ -377,7 +377,8 @@ Expected Response: returns array of clietns in database
     "lista": [
         {
             "_id": "6783d00a468bd6286071d7d3",
-            "name": "Wojtyla Berlusconi",
+            "firstName": "Wojtyla",
+            "secondName":"Berlusconi",
             "phone": "12414124",
             "email": "fsdfs@fsdfs.com",
             "street": "Sportowa",
@@ -387,7 +388,8 @@ Expected Response: returns array of clietns in database
         },
         {
             "_id": "678bc60e128543122b64ade6",
-            "name": "Jan Kowalski",
+            "firstName": "Jan",
+            "secondName":"Kowalski",
             "phone": "12312312",
             "email": "jan@mail.com",
             "strett": "Złota 12",
@@ -407,7 +409,8 @@ Expected response: returns clients by id from database
     "wiadomość": "Szczegóły klienta o numerze 678bc60e128543122b64ade6",
     "dane": {
         "_id": "678bc60e128543122b64ade6",
-        "name": "Jan Kowalski",
+        "firstName": "Jan",
+        "secondName":"Kowalski"
         "phone": "12312312",
         "email": "jan@mail.com",
         "strett": "Złota 12",
@@ -618,7 +621,8 @@ Expected Response: returns array of insurences in database
         },
         "client_id": {
             "_id": "678bc60e128543122b64ade6",
-            "name": "Jan Kowalski",
+            "firstName": "Jan",
+            "secondName":"Kowalski",
             "phone": "12312312",
             "email": "jan@mail.com"
         },
@@ -647,7 +651,8 @@ Expected response: returns insurence by id from database
         },
         "client_id": {
             "_id": "678bc60e128543122b64ade6",
-            "name": "Jan Kowalski",
+            "firstName": "Jan",
+            "secondName":"Kowalski"
             "phone": "12312312",
             "email": "jan@mail.com"
         },
