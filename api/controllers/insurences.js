@@ -149,7 +149,6 @@ exports.insurences_get_by_client_name = async (req, res, next) => {
     }
 
     try {
-        // Znalezienie klienta na podstawie imienia i nazwiska
         const client = await Client.findOne({ firstName, secondName });
 
         if (!client) {
@@ -158,7 +157,6 @@ exports.insurences_get_by_client_name = async (req, res, next) => {
             });
         }
 
-        // Pobranie ubezpieczeń na podstawie znalezionego ID klienta
         const results = await Insurence.find({ client_id: client._id })
             .populate({
                 path: 'car_id',

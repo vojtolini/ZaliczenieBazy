@@ -67,7 +67,7 @@ See deployment for notes on how to deploy the project on a live system.<br>
 5.Start server by typing ```nodemon server.js``` in console.<br>
 
 # Overview
-The application allows you to manage collections named cars, customers, sales and insurance.<br> 
+The application allows you to manage collections named cars, clients, sales and insurances.<br> 
 It allows you to delete, add, modify, and view documents contained in these collections.
 
 # Back-end 

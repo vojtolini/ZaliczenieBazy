@@ -1,4 +1,3 @@
-//importuję model
 const Car = require("../models/car")
 const mongoose = require("mongoose")
 

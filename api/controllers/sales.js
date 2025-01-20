@@ -16,7 +16,6 @@ exports.sales_get_all = async (req, res, next) => {
             select: 'firstName secondName phone email street city postal_code' 
           });
 
-        // Mapowanie wyników do nowej struktury
         const salesWithCarPrice = sales.map(sale => ({
           id: sale._id,
           date: sale.date,
@@ -170,7 +169,6 @@ exports.sales_get_by_client_name = async (req, res, next) => {
     }
 
     try {
-        // Znajdź klienta na podstawie imienia i nazwiska
         const client = await Client.findOne({ firstName, secondName });
 
         if (!client) {
@@ -179,7 +177,6 @@ exports.sales_get_by_client_name = async (req, res, next) => {
             });
         }
 
-        // Znajdź sprzedaże związane z klientem
         const sales = await Sale.find({ client_id: client._id })
             .populate({
                 path: 'car_id',
@@ -198,7 +195,6 @@ exports.sales_get_by_client_name = async (req, res, next) => {
             });
         }
 
-        // Formatowanie wyników
         const salesWithCarPrice = sales.map(sale => ({
             id: sale._id,
             date: sale.date,
@@ -223,7 +219,6 @@ exports.sales_get_by_client_name = async (req, res, next) => {
             }
         }));
 
-        // Zwróć sformatowane wyniki
         res.status(200).json(salesWithCarPrice);
     } catch (error) {
         res.status(500).json({
