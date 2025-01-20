@@ -1,9 +1,7 @@
 const express = require("express")
 const router = express.Router();
-//autoryzacja
 const checkAuth = require("../middleware/checkAuth")
 
-//importuje kontroler
 const SaleController = require("../controllers/sales")
 
 router.get("/",checkAuth, SaleController.sales_get_all )

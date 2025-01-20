@@ -1,9 +1,7 @@
 const express = require("express")
 const router = express.Router();
-//autoryzacja
 const checkAuth = require("../middleware/checkAuth")
 
-//importuje kontroler
 const CarController = require("../controllers/cars")
 
 router.get("/",checkAuth, CarController.cars_get_all )
